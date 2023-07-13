@@ -29,6 +29,7 @@ body {
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 12px;
+    border: 2px solid white;
 }
 
 #copyBtn:hover {
