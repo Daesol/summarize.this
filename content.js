@@ -1,57 +1,33 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'injectExtensionContent') {
-    injectExtensionContent();
+  if (message.action === 'showExtensionContent') {
+    showExtensionContent();
   }
 });
 
-function injectExtensionContent() {
-  const videoContainer = document.querySelector('.html5-video-container');
-  if (videoContainer) {
-    const injectedDiv = document.createElement('div');
+function showExtensionContent() {
+  const extensionContainer = document.createElement('div');
+  extensionContainer.id = 'extensionContainer';
+  extensionContainer.style.position = 'fixed';
+  extensionContainer.style.top = '0';
+  extensionContainer.style.right = '-20%'; // Start hidden outside the screen
+  extensionContainer.style.width = '20%';
+  extensionContainer.style.height = '100%';
+  extensionContainer.style.backgroundColor = '#f2f2f2';
+  extensionContainer.style.transition = 'right 0.5s ease'; // Add smooth sliding animation
 
-    // Create and append your extension components inside the injected div
-    const component1 = document.createElement('p');
-    component1.textContent = 'Component 1';
-    injectedDiv.appendChild(component1);
+  // Create and append your extension components inside the container
+  const component1 = document.createElement('p');
+  component1.textContent = 'Component 1';
+  extensionContainer.appendChild(component1);
 
-    const component2 = document.createElement('p');
-    component2.textContent = 'Component 2';
-    injectedDiv.appendChild(component2);
+  const component2 = document.createElement('p');
+  component2.textContent = 'Component 2';
+  extensionContainer.appendChild(component2);
 
-    // Customize the injected div as desired
-    injectedDiv.style.position = 'absolute';
-    injectedDiv.style.top = '0';
-    injectedDiv.style.right = '0';
-    injectedDiv.style.width = '30%'; // Adjust the width of the extension column
+  document.body.appendChild(extensionContainer);
 
-    // Adjust the YouTube video position
-    const playerContainer = document.querySelector('.html5-video-player');
-    if (playerContainer) {
-      playerContainer.style.position = 'relative';
-      playerContainer.style.float = 'left';
-      playerContainer.style.width = '70%'; // Adjust the width of the video container
-
-      // Adjust the remaining YouTube video elements to fit within the new width
-      const videoPlayer = playerContainer.querySelector('video');
-      const videoAnnotations = playerContainer.querySelector('.annotation');
-      const videoControls = playerContainer.querySelector('.ytp-chrome-bottom');
-
-      if (videoPlayer) {
-        videoPlayer.style.width = '100%';
-        videoPlayer.style.height = '100%';
-      }
-      if (videoAnnotations) {
-        videoAnnotations.style.width = '100%';
-      }
-      if (videoControls) {
-        videoControls.style.width = '100%';
-      }
-    }
-
-    // Inject the div to the right of the video container
-    videoContainer.appendChild(injectedDiv);
-  }
+  // Slide in the extension content after a slight delay
+  setTimeout(() => {
+    extensionContainer.style.right = '0';
+  }, 500);
 }
-
-// Call the injectExtensionContent function immediately
-injectExtensionContent();

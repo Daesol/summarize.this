@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log('Transcript data received:', data);
           if (data && data.transcript) {
             updateTranscript(data.transcript);
+            showExtensionContent();
           } else if (data && data.error) {
             displayError(data.error);
           } else {
@@ -61,6 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Displaying error:', message);
       const transcriptElement = document.getElementById('transcript');
       transcriptElement.value = message;
+    };
+  
+    const showExtensionContent = () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tab = tabs[0];
+        chrome.tabs.sendMessage(tab.id, { action: 'showExtensionContent' });
+      });
     };
   
     const copyTranscript = () => {
