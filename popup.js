@@ -1,6 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded event triggered.');
-  
+
+
+
+    const popupWrapper = document.getElementById('popupWrapper');
+    const copyBtn = document.getElementById('copyBtn');
+
+    copyBtn.addEventListener('click', () => {
+        copyTranscript();
+    });
+
+    // Slide in the popup after a slight delay
+    setTimeout(() => {
+        popupWrapper.style.width = '20%';
+        popupWrapper.style.transform = 'translateX(0)';
+        popupWrapper.style.opacity = '1';
+    }, 500);
+
+
+
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       console.log('Tabs queried:', tabs);
       const tab = tabs[0];

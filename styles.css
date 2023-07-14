@@ -2,11 +2,30 @@ body {
     background-color: #f9f9f9;
     font-family: Arial, sans-serif;
     padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#popupWrapper {
+    width: 0;
+    height: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: width 0.5s ease, transform 0.5s ease, opacity 0.5s ease; /* Add sliding and opacity animations */
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%); /* Initially hide the popup outside the screen */
+    opacity: 0;
+    overflow-y: auto;
 }
 
 #transcript {
-    width: 500px;
-    height: 300px;
+    width: 100%;
+    height: calc(100% - 70px);
+    margin-bottom: 20px;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
@@ -17,9 +36,9 @@ body {
 }
 
 #copyBtn {
-    margin-top: 10px;
+    width: 100%;
     padding: 10px 20px;
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: none;
     color: white;
     text-align: center;
