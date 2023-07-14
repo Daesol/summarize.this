@@ -1,23 +1,39 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Transcript Fetcher",
+  "name": "YouTube Sidebar Extension",
   "version": "1.0",
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["http://localhost:5000/*"],
+  "host_permissions": [
+    "http://localhost:5000/*", 
+    "http://*/*",
+    "https://*/*"
+  ],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css"],
+      "matches": ["<all_urls>"]
+    }
+  ],  
   "action": {
-    "default_popup": "popup.html",
+    "default_title": "Toggle My Extension",
     "default_icon": {
       "16": "images/icon16.png",
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     }
   },
-  "background": {
-    "service_worker": "background.js"
-  },
-  "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
-  }
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
 }
