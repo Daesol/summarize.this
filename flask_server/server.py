@@ -33,7 +33,6 @@ def get_transcript():
                 transcript_with_timestamps.append(f"[{timestamp}]: {text}\n")
 
             transcript_text = ' '.join(transcript_with_timestamps)
-            print(transcript_text, "sdfsdfsfd")
 
             return jsonify({'transcript': transcript_text})
         except Exception as e:

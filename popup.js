@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTranscript = (transcript) => {
       console.log('Updating transcript:', transcript);
       const transcriptElement = document.getElementById('transcript');
-      const lines = transcript.split('\n');
+      const lines = transcript.split('\n').filter(l => l.trim() !== '');
 
       let html = '';
     
@@ -86,9 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Copying transcript.');
         const transcriptElement = document.getElementById('transcript');
         const copyBtn = document.getElementById('copyBtn');
+
+        // Get the textContent of the div
+        const text = transcriptElement.textContent;
     
         // New Clipboard API
-        navigator.clipboard.writeText(transcriptElement.value)
+        navigator.clipboard.writeText(text)
         .then(() => {
             console.log('Transcript copied to clipboard.');
             copyBtn.innerText = "Copied!";

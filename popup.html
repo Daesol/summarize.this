@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Transcript Extension</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Transcript Extension</title>
+  
+  <!-- Use Google Fonts for modern fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Use Font Awesome for icon -->
+  <script src="https://kit.fontawesome.com/4b1a9fac52.js" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-    <div id="transcript" class="transcript-placeholder">Fetching Script...</div>
-    <button id="copyBtn">Copy</button>
-    <script src="popup.js"></script>
+
+  <div class="container">
+
+    <div class="header">
+      <i class="fas fa-closed-captioning"></i>
+      <h1>Video Transcript</h1>
+    </div>
+
+    <div id="transcript" class="transcript-placeholder">
+      Fetching transcript...
+    </div>
+
+    <div class="footer">
+      <button id="copyBtn">
+        <i class="far fa-copy"></i> 
+        Copy Transcript
+      </button>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+
 </body>
 </html>
