@@ -37,3 +37,20 @@ body {
     color: black;
     border: 2px solid #4CAF50;
 }
+
+.transcript-placeholder {
+    font-style: regular;
+    color: #999;
+    overflow: auto;
+    max-height: 400px; /* Adjust the height as needed */
+  }
+  
+  .timestamp {
+    color: green;
+  }
+  
+  .text {
+    color: black;
+  }
+  
+  

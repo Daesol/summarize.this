@@ -57,7 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTranscript = (transcript) => {
       console.log('Updating transcript:', transcript);
       const transcriptElement = document.getElementById('transcript');
-      transcriptElement.value = transcript;
+      const lines = transcript.split('\n');
+
+      let html = '';
+    
+      lines.forEach(line => {
+        
+        // Split timestamp and text
+        const parts = line.split(': ', 2);
+        const timestamp = parts[0]; 
+        const text = parts[1];
+    
+        // Wrap in spans to style separately 
+        html += `<div><span class="timestamp">${timestamp}</span>: <span class="text">${text}</span></div>`;
+    
+      });
+
+      transcriptElement.innerHTML = html;
     };
   
     const displayError = (message) => {

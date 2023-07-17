@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi
+import time
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
@@ -20,7 +21,20 @@ def get_transcript():
         # Fetch transcript using youtube-transcript-api
         try:
             transcript = YouTubeTranscriptApi.get_transcript(video_id)  # Use video ID, not link
-            transcript_text = ' '.join([t['text'] for t in transcript])
+            transcript_with_timestamps = []
+
+            for item in transcript:
+                text = item['text']
+                start = item['start']
+                
+                # Convert seconds to MM:SS format
+                timestamp = time.strftime('%M:%S', time.gmtime(start)) 
+                
+                transcript_with_timestamps.append(f"[{timestamp}]: {text}\n")
+
+            transcript_text = ' '.join(transcript_with_timestamps)
+            print(transcript_text, "sdfsdfsfd")
+
             return jsonify({'transcript': transcript_text})
         except Exception as e:
             return jsonify({'error': str(e)}), 500
@@ -29,4 +43,3 @@ def get_transcript():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000)
-
