@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi
 import time
+from gpt_summarizer import summarize_text
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
@@ -35,6 +36,21 @@ def get_transcript():
             transcript_text = ' '.join(transcript_with_timestamps)
 
             return jsonify({'transcript': transcript_text})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    else:
+        return jsonify({'message': 'Method Not Allowed'}), 405
+
+@app.route('/summarize', methods=['POST'])
+def summarize():
+    if request.method == 'POST':
+        transcript_text = request.json['transcriptText']
+        
+        try:
+            # Summarize transcript using GPT
+            generated_summary = summarize_text(transcript_text)
+            
+            return jsonify({'summary': generated_summary})
         except Exception as e:
             return jsonify({'error': str(e)}), 500
     else:
